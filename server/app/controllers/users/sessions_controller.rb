@@ -9,7 +9,6 @@ class Users::SessionsController < Devise::SessionsController
         render json: {
             message: "Logged in",
             user: current_user,
-            token: response.get_header('Authorization')
         }, status: :ok
     end
 

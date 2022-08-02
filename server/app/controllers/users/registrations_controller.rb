@@ -22,8 +22,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def register_failed 
+        puts resource.errors.messages
         render json: {
-            message: "Something went wrong",
+            errors: resource.errors.messages
         }, status: 500
     end
+
 end

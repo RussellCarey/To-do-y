@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :todos
   # devise_for is meant to play nicely with other routes methods. 
   # For example, by calling devise_for inside a namespace, it automatically nests your devise controllers.
 
