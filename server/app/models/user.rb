@@ -2,6 +2,7 @@
 # https://btihen.me/post_ruby_rails/rails_devise_users_namespaced/
 class User < ApplicationRecord
   validates :email, presence: true
+  validates_confirmation_of :password
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
