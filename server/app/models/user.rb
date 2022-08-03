@@ -15,4 +15,5 @@ class User < ApplicationRecord
         #  :recoverable, :rememberable, :validatable
 
   has_many :categories
+  has_many :todos, through: :categories
 end

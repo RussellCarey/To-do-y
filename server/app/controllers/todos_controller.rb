@@ -1,11 +1,16 @@
 class TodosController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ users_todos create update destroy ]
   before_action :set_todo, only: %i[ show update destroy ]
 
   # GET /todos
   def index
     @todos = Todo.all
     render json: @todos
+  end
+
+  def users_todos
+    @users_todos = current_user.todos
+    render json: @users_todos
   end
 
   # GET /todos/1

@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ users show destroy update create ]
   before_action :set_category, only: %i[ show update destroy ]
   
 
@@ -12,6 +12,12 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   def show
     render json: @category
+  end
+
+  # GET /users_categories
+  def users
+    @user_categories = Category.where(user_id: current_user.id)
+    render json: @user_categories
   end
 
   # POST /categories

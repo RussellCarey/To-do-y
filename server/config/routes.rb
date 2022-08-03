@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  resources :categories
-  resources :todos
   # devise_for is meant to play nicely with other routes methods. 
   # For example, by calling devise_for inside a namespace, it automatically nests your devise controllers.
-
   devise_for :users,
   # Added defaults to stop flash error
   defaults: { format: :json },
@@ -14,9 +11,11 @@ Rails.application.routes.draw do
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-
-  get '/current-user', to: 'members#show'
   
+  resources :categories
+  resources :todos
+
+  get 'users_categories', to: 'categories#users'
+  get 'users_todos', to: 'todos#users_todos'
+
 end

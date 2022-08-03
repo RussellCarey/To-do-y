@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
-import './login.css';
+import Cookies from 'js-cookie';
+import './styles/login.css';
 import '../shared/styles/textinput.css';
 
 // Components
@@ -14,21 +14,19 @@ import { LoginDetails, LoginPageProps } from './interfaces/interface';
 import { loginUserAttempt } from './services/dbServices';
 
 const LoginPage: FunctionComponent<LoginPageProps> = ({ setCurrentPage }) => {
-	const [cookies, setCookie, removeCookie] = useCookies([constants.token_name]);
 	const [loginDetails, setLoginDetails] = useState<LoginDetails>({ email: '', password: '' });
 
 	const onChange = (e: React.ChangeEvent) => {
 		const target = e.target as HTMLInputElement;
 		setLoginDetails({ ...loginDetails, [target.id]: target.value });
-		console.log(loginDetails);
 	};
 
 	const loginAttempt = async () => {
 		try {
 			const login = await loginUserAttempt(loginDetails);
 			if (login.status !== 200) console.log('ERROR WITH LOGIN');
-			const token = login.headers.authorization.split(' ')[1];
-			setCookie(constants.token_name, token, { path: '/' });
+			const token = login.headers.authorization;
+			Cookies.set(constants.token_name, token, { path: '/' });
 			setCurrentPage({ page: 'main' });
 		} catch (error) {
 			console.log(error);
@@ -36,7 +34,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = ({ setCurrentPage }) => {
 	};
 
 	useEffect(() => {
-		const token = cookies['token-jwt'];
+		const token = Cookies.get(constants.token_name);
 		if (!token) return;
 
 		// Changing 'page' to the main screen as user is logged in..
