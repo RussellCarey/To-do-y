@@ -1,28 +1,8 @@
 .circlebutton {
-	width: 100px;
-	height: 100px;
+	width: 40px;
+	height: 40px;
+	min-width: 40px;
 	border-radius: 50%;
-}
-
-.circlebutton-symbol {
-}
-
-.circlebutton-blue {
-	background-color: var(--main-blue);
-}
-
-.circlebutton-orange {
-	background-color: var(--main-orange);
-}
-
-.circlebutton-red {
+	margin-left: 20px;
 	background-color: var(--main-red);
-}
-
-.circlebutton-green {
-	background-color: var(--main-green);
-}
-
-.circlebutton-purple {
-	background-color: var(--main-purple);
 }

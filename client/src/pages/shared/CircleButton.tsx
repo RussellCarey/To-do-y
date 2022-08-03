@@ -7,7 +7,7 @@ interface CircleButtonProps {
 }
 
 const CircleButton: FunctionComponent<CircleButtonProps> = () => {
-	return <button className="circlebutton">CircleButton</button>;
+	return <button className="circlebutton"></button>;
 };
 
 export default CircleButton;

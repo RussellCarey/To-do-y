@@ -15,7 +15,7 @@
 	background-color: var(--main-dark-grey);
 	border-radius: 20px;
 
-	padding: 30px;
+	padding: 30px 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
