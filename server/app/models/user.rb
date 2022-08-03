@@ -14,5 +14,5 @@ class User < ApplicationRecord
   jwt_revocation_strategy: JwtDenylist
         #  :recoverable, :rememberable, :validatable
 
-  has_many :todos
+  has_many :categories
 end

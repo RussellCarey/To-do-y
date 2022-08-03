@@ -1,7 +1,4 @@
 class Todo < ApplicationRecord
-    belongs_to :user
-    validates :title, presence: true
-    validates :content, presence: true
-    validates :deadline, presence: true
-    validates :user_id, presence: true
+    belongs_to :category
+    has_one :user, through: :category
 end

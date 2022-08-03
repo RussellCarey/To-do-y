@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import { useState, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import Container from './pages/shared/Container';
+import LoginPage from './pages/login/Index';
+import MainPage from './pages/main/Index';
+
+interface PageState {
+	page: 'login' | 'main' | 'todo';
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [user, setUser] = useState(null);
+	const [todos, setTodos] = useState(null);
+	const [currentPage, setCurrentPage] = useState<PageState>({ page: 'login' });
+
+	useEffect(() => {
+		// Check user is logged in and move to next page if so..
+	}, []);
+
+	console.log(currentPage);
+
+	return (
+		<BrowserRouter>
+			<Container>
+				{currentPage.page === 'login' && <LoginPage setCurrentPage={setCurrentPage} />}
+				{currentPage.page === 'main' && <MainPage />}
+			</Container>
+		</BrowserRouter>
+	);
 }
 
 export default App;

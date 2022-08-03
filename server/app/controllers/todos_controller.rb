@@ -1,10 +1,10 @@
 class TodosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_todo, only: %i[ show update destroy ]
 
   # GET /todos
   def index
     @todos = Todo.all
-
     render json: @todos
   end
 
@@ -14,6 +14,7 @@ class TodosController < ApplicationController
   end
 
   # POST /todos
+  # Needs: title, content, deadline, category id
   def create
     @todo = Todo.new(todo_params)
 

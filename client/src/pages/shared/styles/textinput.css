@@ -1,0 +1,17 @@
+.text-input {
+	width: 100%;
+	padding: 5px 20px;
+	height: 40px;
+
+	color: var(--main-white);
+	background-color: var(--main-light-grey);
+	outline: none;
+	border: none;
+
+	border-radius: 20px;
+	margin-bottom: 15px;
+}
+
+.text-input::placeholder {
+	color: var(--main-white);
+}
