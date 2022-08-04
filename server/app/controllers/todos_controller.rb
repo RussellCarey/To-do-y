@@ -1,9 +1,10 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!, only: %i[ users_todos create update destroy ]
   before_action :set_todo, only: %i[ show update destroy ]
+  before_action :check_user_is_admin, only: %i[ index ]
 
   # GET /todos
-  def index
+  def indexs
     @todos = Todo.all
     render json: @todos
   end
@@ -53,5 +54,11 @@ class TodosController < ApplicationController
     # Only allow a list of trusted parameters through.
     def todo_params
       params.require(:todo).permit(:title, :content)
+    end
+
+    def check_is_admin
+      if(!current_user.isAdmin)
+        render json: {message: "You cannot access this resource"}, status: :unprocessable_entity
+      end
     end
 end
