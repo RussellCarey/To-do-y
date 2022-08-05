@@ -1,8 +1,15 @@
 import { Todo, Category } from '../../../interfaces/interaces';
 
 export interface MainPageProps {
-	todos?: Todo[];
+	todos: Todo[];
 	setTodos: any;
-	categories?: Category[];
+	categories: Category[];
 	setCategory: any;
+}
+
+export interface CurrenTaskProps {
+	todo: Todo;
+	onClick?: Function;
+	setSelectedTodo?: any;
+	setShowEditTask?: any;
 }

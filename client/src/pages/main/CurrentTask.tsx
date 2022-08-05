@@ -1,25 +1,26 @@
 import React, { FunctionComponent } from 'react';
+import { CurrenTaskProps } from './interfaces/interfaces';
 import { deleteTodo } from './services/dbServices';
 
-interface CurrenTaskProps {
-	id: string | number;
-	title: string;
-	text: string;
-	onClick?: Function;
-}
-
-const CurrentTask: FunctionComponent<CurrenTaskProps> = ({ id, title, text, onClick }) => {
+const CurrentTask: FunctionComponent<CurrenTaskProps> = ({ todo, onClick, setSelectedTodo, setShowEditTask }) => {
 	const removeTodo = async () => {
-		const delRequest = await deleteTodo(id);
+		const delRequest = await deleteTodo(todo.id);
 		console.log(delRequest);
 	};
+
+	const editToDo = () => {
+		setSelectedTodo(todo);
+		setShowEditTask(true);
+	};
+
 	return (
 		<div className="currenttask-container">
 			<h3 className="cross" onClick={removeTodo}>
 				x
 			</h3>
-			<p>{title}</p>
-			<p>{text}</p>
+			<p onClick={editToDo}>edit</p>
+			<p>{todo.title}</p>
+			<p>{todo.content}</p>
 		</div>
 	);
 };

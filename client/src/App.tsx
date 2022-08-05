@@ -13,8 +13,8 @@ interface PageState {
 }
 
 function App() {
-	const [todos, setTodos] = useState<Todo[]>();
-	const [categories, setCategories] = useState<Category[]>();
+	const [todos, setTodos] = useState<Todo[]>([]);
+	const [categories, setCategories] = useState<Category[]>([]);
 	const [currentPage, setCurrentPage] = useState<PageState>({ page: 'login' });
 
 	useEffect(() => {

@@ -15,7 +15,24 @@ export const submitNewTodo = async (data: NewTodo) => {
 		headers: {
 			authorization: token,
 		},
-		data: {},
+		data: data,
+	});
+
+	return request;
+};
+
+export const editTodo = async (id: number | string, data: NewTodo) => {
+	const token = Cookies.get(constants.token_name)?.toString();
+	if (!token) throw new Error('No token!');
+
+	const request = await axios.request({
+		withCredentials: true,
+		url: `${constants.base_url}/todos/${id}`,
+		method: 'PATCH',
+		headers: {
+			authorization: token,
+		},
+		data: data,
 	});
 
 	return request;

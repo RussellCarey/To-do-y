@@ -1,3 +1,5 @@
+import { Category, Todo } from '../../../interfaces/interaces';
+
 export interface NewTodo {
 	title: string;
 	content: string;
@@ -5,9 +7,11 @@ export interface NewTodo {
 	category_id: string | number;
 }
 
-export interface AddTaskProps {
+export interface AddEditTaskProps {
 	id?: number | string;
 	isAdd: boolean;
 	show: boolean;
 	setShow: any;
+	categories: Category[];
+	selectedTodo?: Todo;
 }

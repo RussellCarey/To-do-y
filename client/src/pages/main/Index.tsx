@@ -7,6 +7,7 @@ import CategoryComponent from './Category';
 import CurrentTask from './CurrentTask';
 
 import { getAllTodos, getAllCategories } from './services/dbServices';
+import { Todo } from '../../interfaces/interaces';
 import { MainPageProps } from './interfaces/interfaces';
 
 import AddEditTask from '../modals/AddTask';
@@ -14,6 +15,7 @@ import AddEditTask from '../modals/AddTask';
 const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categories, setCategory }) => {
 	const [showAddTask, setShowAddTask] = useState(false);
 	const [showEditTask, setShowEditTask] = useState(false);
+	const [selectedTodo, setSelectedTodo] = useState<Todo>();
 
 	const onChange = (e: React.ChangeEvent) => {
 		const target = e.target as HTMLInputElement;
@@ -22,11 +24,11 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 	const getAllTasksAndCategories = async () => {
 		const [todos, categories] = await Promise.all([await getAllTodos(), await getAllCategories()]);
 		//! CHECKKSKKSKS - seperat ethe calls..
-		console.log(categories);
-		console.log(todos);
 		setCategory(categories.data);
 		setTodos(todos.data);
 	};
+
+	const editOnClick = () => {};
 
 	useEffect(() => {
 		getAllTasksAndCategories();
@@ -34,8 +36,10 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 
 	return (
 		<>
-			{showAddTask && <AddEditTask isAdd={true} show={showAddTask} setShow={setShowAddTask} />}
-			{!showAddTask && <AddEditTask isAdd={false} show={showEditTask} setShow={setShowEditTask} />}
+			{showAddTask && <AddEditTask isAdd={true} show={showAddTask} setShow={setShowAddTask} categories={categories} />}
+			{showEditTask && (
+				<AddEditTask isAdd={false} show={showEditTask} setShow={setShowEditTask} categories={categories} selectedTodo={selectedTodo} />
+			)}
 
 			<div className="main-container">
 				<div className="search-container">
@@ -49,7 +53,7 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 				</div>
 
 				<div className="categories-container">
-					{categories &&
+					{categories.length > 0 &&
 						categories.map((cat) => {
 							return <CategoryComponent id={cat.id} title={cat.name} tasksNo={1} />;
 						})}
@@ -57,13 +61,15 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 
 				<div className="title-container">
 					<h3 className="subtitle">Current tasks</h3>
-					<h2 className="plus">+</h2>
+					<h2 className="plus" onClick={() => setShowAddTask(true)}>
+						+
+					</h2>
 				</div>
 
 				<div className="task-container">
-					{todos &&
+					{todos.length > 0 &&
 						todos.map((td) => {
-							return <CurrentTask id={td.id} title={td.title} text={td.content} />;
+							return <CurrentTask todo={td} setSelectedTodo={setSelectedTodo} setShowEditTask={setShowEditTask} />;
 						})}
 				</div>
 			</div>
