@@ -37,3 +37,20 @@ export const editTodo = async (id: number | string, data: NewTodo) => {
 
 	return request;
 };
+
+export const submitNewCategory = async (data: any) => {
+	const token = Cookies.get(constants.token_name)?.toString();
+	if (!token) throw new Error('No token!');
+
+	const request = await axios.request({
+		withCredentials: true,
+		url: `${constants.base_url}/categories`,
+		method: 'POST',
+		headers: {
+			authorization: token,
+		},
+		data: data,
+	});
+
+	return request;
+};

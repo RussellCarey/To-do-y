@@ -11,10 +11,12 @@ import { Todo } from '../../interfaces/interaces';
 import { MainPageProps } from './interfaces/interfaces';
 
 import AddEditTask from '../modals/AddTask';
+import AddCategory from '../modals/AddCategory';
 
 const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categories, setCategory }) => {
 	const [showAddTask, setShowAddTask] = useState(false);
 	const [showEditTask, setShowEditTask] = useState(false);
+	const [showAddCategory, setShowAddCategory] = useState(false);
 	const [selectedTodo, setSelectedTodo] = useState<Todo>();
 
 	const onChange = (e: React.ChangeEvent) => {
@@ -40,6 +42,7 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 			{showEditTask && (
 				<AddEditTask isAdd={false} show={showEditTask} setShow={setShowEditTask} categories={categories} selectedTodo={selectedTodo} />
 			)}
+			{showAddCategory && <AddCategory setShow={setShowAddCategory} />}
 
 			<div className="main-container">
 				<div className="search-container">
@@ -49,7 +52,9 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 
 				<div className="title-container">
 					<h3 className="subtitle">Categories</h3>
-					<h2 className="plus">+</h2>
+					<h2 className="plus" onClick={() => setShowAddCategory(true)}>
+						+
+					</h2>
 				</div>
 
 				<div className="categories-container">

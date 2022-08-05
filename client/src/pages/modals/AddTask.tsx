@@ -11,7 +11,6 @@ const AddTask: FunctionComponent<AddEditTaskProps> = ({ isAdd, categories, setSh
 
 	useEffect(() => {
 		if (isAdd) return;
-		console.log(selectedTodo);
 		setToDoDetails(selectedTodo!);
 	}, []);
 
