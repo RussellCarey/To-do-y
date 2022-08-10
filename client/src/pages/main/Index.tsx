@@ -1,6 +1,8 @@
 import './styles/main.css';
 import '../shared/styles/textinput.css';
 import { FunctionComponent, useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import CircleButton from '../shared/CircleButton';
 import CategoryComponent from './Category';
@@ -17,6 +19,7 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 	const [showAddTask, setShowAddTask] = useState(false);
 	const [showEditTask, setShowEditTask] = useState(false);
 	const [showAddCategory, setShowAddCategory] = useState(false);
+	const [showFullTodo, setShowFullTodo] = useState(false);
 	const [selectedTodo, setSelectedTodo] = useState<Todo>();
 
 	const onChange = (e: React.ChangeEvent) => {
@@ -38,11 +41,13 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 
 	return (
 		<>
+			<ToastContainer />
 			{showAddTask && <AddEditTask isAdd={true} show={showAddTask} setShow={setShowAddTask} categories={categories} />}
 			{showEditTask && (
 				<AddEditTask isAdd={false} show={showEditTask} setShow={setShowEditTask} categories={categories} selectedTodo={selectedTodo} />
 			)}
 			{showAddCategory && <AddCategory setShow={setShowAddCategory} />}
+			{showFullTodo}
 
 			<div className="main-container">
 				<div className="search-container">
@@ -60,7 +65,7 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 				<div className="categories-container">
 					{categories.length > 0 &&
 						categories.map((cat) => {
-							return <CategoryComponent id={cat.id} title={cat.name} tasksNo={1} />;
+							return <CategoryComponent id={cat.id} title={cat.name} tasksNo={1} showToast={toast} />;
 						})}
 				</div>
 
@@ -74,7 +79,15 @@ const MainPage: FunctionComponent<MainPageProps> = ({ todos, setTodos, categorie
 				<div className="task-container">
 					{todos.length > 0 &&
 						todos.map((td) => {
-							return <CurrentTask todo={td} setSelectedTodo={setSelectedTodo} setShowEditTask={setShowEditTask} />;
+							return (
+								<CurrentTask
+									todo={td}
+									setSelectedTodo={setSelectedTodo}
+									setShowEditTask={setShowEditTask}
+									setShowFullTodo={setShowFullTodo}
+									showToast={toast}
+								/>
+							);
 						})}
 				</div>
 			</div>

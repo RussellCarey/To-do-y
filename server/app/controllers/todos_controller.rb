@@ -42,7 +42,11 @@ class TodosController < ApplicationController
 
   # DELETE /todos/1
   def destroy
-    @todo.destroy
+    if @todo.destroy
+      render json: @todo
+    else
+      render json: @todo.errors, status: :unprocessable_entity
+    end
   end
 
   private

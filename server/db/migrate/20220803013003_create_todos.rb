@@ -4,7 +4,6 @@ class CreateTodos < ActiveRecord::Migration[7.0]
       t.string :title
       t.text :content
       t.datetime :deadline
-
       t.timestamps
     end
   end

@@ -3,6 +3,9 @@ import Cookies from 'js-cookie';
 import './styles/login.css';
 import '../shared/styles/textinput.css';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Components
 import { constants } from '../../constants/urls';
 import LongButton from '../shared/LongButton';
@@ -22,14 +25,17 @@ const LoginPage: FunctionComponent<LoginPageProps> = ({ setCurrentPage }) => {
 	};
 
 	const loginAttempt = async () => {
+		toast('Logging in!');
 		try {
 			const login = await loginUserAttempt(loginDetails);
-			if (login.status !== 200) console.log('ERROR WITH LOGIN');
+			if (login.status !== 200) return toast(login.status);
+
 			const token = login.headers.authorization;
 			Cookies.set(constants.token_name, token, { path: '/' });
+
 			setCurrentPage({ page: 'main' });
 		} catch (error) {
-			console.log(error);
+			return toast('Error logging in');
 		}
 	};
 
@@ -44,6 +50,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = ({ setCurrentPage }) => {
 
 	return (
 		<div className="login-container">
+			<ToastContainer />
 			<h1 className="title">Todooy</h1>
 			<input id="email" type="text" className="text-input" placeholder="Enter email" onChange={onChange}></input>
 			<input id="password" type="password" className="text-input" placeholder="Enter password" onChange={onChange}></input>

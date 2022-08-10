@@ -6,12 +6,18 @@ interface CategoryProps {
 	title: string;
 	tasksNo: number;
 	onClick?: Function;
+	showToast: Function;
 }
 
-const Category: FunctionComponent<CategoryProps> = ({ id, title, tasksNo, onClick }) => {
+const Category: FunctionComponent<CategoryProps> = ({ id, title, tasksNo, showToast }) => {
 	const removeCategory = async () => {
-		const delRequest = await deleteCategory(id);
-		console.log(delRequest);
+		try {
+			const delRequest = await deleteCategory(id);
+			if (delRequest.status !== 200) return showToast('Error removing category..');
+			showToast('Removed category..');
+		} catch (error) {
+			showToast('Error removing category..');
+		}
 	};
 
 	return (

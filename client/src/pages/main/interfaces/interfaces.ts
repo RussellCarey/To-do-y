@@ -12,4 +12,6 @@ export interface CurrenTaskProps {
 	onClick?: Function;
 	setSelectedTodo?: any;
 	setShowEditTask?: any;
+	setShowFullTodo: any;
+	showToast: Function;
 }

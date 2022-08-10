@@ -2,10 +2,15 @@ import React, { FunctionComponent } from 'react';
 import { CurrenTaskProps } from './interfaces/interfaces';
 import { deleteTodo } from './services/dbServices';
 
-const CurrentTask: FunctionComponent<CurrenTaskProps> = ({ todo, onClick, setSelectedTodo, setShowEditTask }) => {
+const CurrentTask: FunctionComponent<CurrenTaskProps> = ({ todo, setSelectedTodo, setShowEditTask, setShowFullTodo, showToast }) => {
 	const removeTodo = async () => {
-		const delRequest = await deleteTodo(todo.id);
-		console.log(delRequest);
+		try {
+			const delRequest = await deleteTodo(todo.id);
+			if (delRequest.status !== 200) return showToast('Error removing todo');
+			showToast('Removed todo');
+		} catch (error) {
+			showToast('Error removing todo..');
+		}
 	};
 
 	const editToDo = () => {
@@ -14,12 +19,15 @@ const CurrentTask: FunctionComponent<CurrenTaskProps> = ({ todo, onClick, setSel
 	};
 
 	return (
-		<div className="currenttask-container">
-			<h3 className="cross" onClick={removeTodo}>
-				x
-			</h3>
-			<p onClick={editToDo}>edit</p>
-			<p>{todo.title}</p>
+		<div className="currenttask-container" onClick={() => setShowFullTodo(true)}>
+			<div className="current-task-header">
+				<p onClick={editToDo}>edit</p>
+				<h3 className="cross-static" onClick={removeTodo}>
+					x
+				</h3>
+			</div>
+
+			<p className="currenttask-title">{todo.title}</p>
 			<p>{todo.content}</p>
 		</div>
 	);

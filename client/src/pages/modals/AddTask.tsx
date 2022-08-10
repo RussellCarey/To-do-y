@@ -30,8 +30,9 @@ const AddTask: FunctionComponent<AddEditTaskProps> = ({ isAdd, categories, setSh
 	};
 
 	const selectOnChange = (e: React.ChangeEvent) => {
+		console.log(todoDetails);
 		const target = e.target as HTMLSelectElement;
-		setToDoDetails({ ...todoDetails, category_id: target.selectedIndex });
+		setToDoDetails({ ...todoDetails, category_id: target.options[target.selectedIndex].id });
 	};
 
 	return (
@@ -45,7 +46,7 @@ const AddTask: FunctionComponent<AddEditTaskProps> = ({ isAdd, categories, setSh
 				<input id="title" className="add-inputs" type="text" placeholder="Name" onChange={inputOnChange} value={todoDetails.title} />
 				<textarea id="content" className="add-inputs" placeholder="Content" onChange={inputOnChange} value={todoDetails.content} />
 				<input id="deadline" className="add-inputs" type="date" placeholder="deadline" onChange={inputOnChange} value={todoDetails.deadline} />
-				<select id="category" placeholder="category" className="add-inputs" onChange={selectOnChange} value={todoDetails.deadline}>
+				<select id="category" placeholder="category" className="add-inputs" onChange={selectOnChange}>
 					<option id={''} value={''}>
 						Select category
 					</option>

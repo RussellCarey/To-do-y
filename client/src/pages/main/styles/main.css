@@ -44,8 +44,11 @@
 	height: 70px;
 	margin-bottom: 20px;
 	border-radius: 20px;
-	padding: 10px;
+	padding: 10px 20px;
 	font-weight: 500;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .category-taskno {
@@ -60,12 +63,24 @@
 	width: 100%;
 }
 
+.current-task-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.currenttask-title {
+	font-weight: 800;
+}
+
 .currenttask-container {
 	position: relative;
 	width: 100%;
 	min-width: 100%;
 	height: max-content;
 	padding: 15px;
+	padding-top: 10px;
 	background-color: var(--main-light-grey);
 	border-radius: 20px;
 	word-break: break-all;
@@ -73,8 +88,12 @@
 }
 
 .cross {
+	font-weight: 400;
 	position: absolute;
-	top: 5px;
+	top: 3px;
 	right: 10px;
+}
+
+.cross-static {
 	font-weight: 400;
 }

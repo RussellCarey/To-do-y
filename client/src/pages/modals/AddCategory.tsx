@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import LongButton from '../shared/LongButton';
 import './styles/modals.css';
 
@@ -9,10 +9,21 @@ interface AddCategoryProps {
 	setShow: any;
 }
 
+interface NewCategory {
+	name: string;
+	color: string;
+}
+
 const AddCategory: FunctionComponent<AddCategoryProps> = ({ setShow }) => {
-	const [categoryData, setCategoryData] = useState({});
+	const [categoryData, setCategoryData] = useState<NewCategory>({ name: '', color: '' });
 
 	const addCategory = async () => {
+		// Validations
+		Validations.validatePresence(categoryData.name);
+		Validations.validatePresence(categoryData.color);
+		Validations.validateLength(categoryData.name, 3, 15);
+		Validations.validateLength(categoryData.name, 4, 6);
+
 		const req = await submitNewCategory(categoryData);
 		console.log(req);
 	};
@@ -29,11 +40,11 @@ const AddCategory: FunctionComponent<AddCategoryProps> = ({ setShow }) => {
 
 	return (
 		<>
-			<h2 className="cross" onClick={() => setShow(false)}>
-				X
-			</h2>
 			<div className="modal-container">
 				<div className="area-container">
+					<h2 className="cross" onClick={() => setShow(false)}>
+						X
+					</h2>
 					<h3 className="title">Add new category</h3>
 					<input id="name" className="add-inputs" type="text" placeholder="Enter title" onChange={inputOnChange} />
 					<select id="color" className="add-inputs" name="" onChange={selectOnChange}>

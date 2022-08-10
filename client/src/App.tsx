@@ -9,7 +9,7 @@ import MainPage from './pages/main/Index';
 import { Todo, Category } from './interfaces/interaces';
 
 interface PageState {
-	page: 'login' | 'main' | 'todo';
+	page: 'login' | 'main';
 }
 
 function App() {
